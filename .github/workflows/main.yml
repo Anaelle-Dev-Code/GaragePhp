@@ -1,0 +1,36 @@
+name: CI GaragePhp
+
+on:
+    push:
+        branches:
+            -main
+    pull_request:
+        branches:
+            -main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout du code
+              uses: actions/checkout@v4
+
+            - name: Configuration PHP
+              uses: shivammathur/setup-php@v2
+              with: 
+                php-version: '8.4.10' #La version de php que vous utilisez
+                extensions: pdo_mysql, mbstring #Ajoute les extensions nécessaire
+                tools: composer #Installe composer
+
+            - name: Installation des dépendances composer
+              run: composer install --no-interaction --prefer-dist --optimize-autoloadeer
+
+
+            - name: Execution des tests PHPunit
+              run: vendor/bin/phpunit #Assurer vous que PHPUnit est configurer
+
+
+
+
+    
