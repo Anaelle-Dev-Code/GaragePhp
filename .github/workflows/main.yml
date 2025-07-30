@@ -26,6 +26,9 @@ jobs:
             - name: Installation des dépendances composer
               run: composer install --no-interaction --prefer-dist --optimize-autoloadeer
 
+            - name: Lint PHP files
+              run: find . -types f -names "*.php" ! -path "./vendor/*" -exec php -1 {} \; | (! grep "Errors parsing")
+
 
             - name: Execution des tests PHPunit
               run: vendor/bin/phpunit #Assurer vous que PHPUnit est configurer
